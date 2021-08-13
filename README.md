@@ -1,2 +1,2 @@
-# uccd3223
-Java-based Pomodoro timer / game Android application.
+# Iridium
+Java-based android application focues on Pomodoro Timer functionality.
