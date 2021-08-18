@@ -1,14 +1,14 @@
-package cyto.iridium.iridium.ui.gallery;
+package cyto.iridium.iridium.ui.clock;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class ClockViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public ClockViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }
