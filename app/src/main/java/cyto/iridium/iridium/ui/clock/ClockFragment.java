@@ -204,7 +204,7 @@ public class ClockFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("Iridium_Clock", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
         editor.putLong("startTimeMs", StartTimeMs);
@@ -223,7 +223,7 @@ public class ClockFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("Iridium_Clock", Context.MODE_PRIVATE);
 
         StartTimeMs = pref.getLong("startTimeMs", 600000);
         TimeLeftMs = pref.getLong("msLeft", StartTimeMs);
