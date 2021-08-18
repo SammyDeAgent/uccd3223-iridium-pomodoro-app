@@ -1,20 +1,28 @@
-package cyto.iridium.iridium;
+package cyto.iridium.iridium.ui.clock;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import java.util.Locale;
 
-public class ClockActivity extends AppCompatActivity {
+import cyto.iridium.iridium.R;
+import cyto.iridium.iridium.databinding.FragmentClockBinding;
+
+public class ClockFragment extends Fragment {
 
     private EditText EditTextIn;
     private TextView CountDown;
@@ -30,31 +38,50 @@ public class ClockActivity extends AppCompatActivity {
     private long TimeLeftMs;
     private long EndTime;
 
+    private ClockViewModel clockViewModel;
+    private FragmentClockBinding binding;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        clockViewModel =
+                new ViewModelProvider(this).get(ClockViewModel.class);
+
+        binding = FragmentClockBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+//        final TextView textView = binding.textGallery;
+//        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+
+        return root;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clock);
+    public void onViewCreated(View view, @NonNull Bundle savedInstanceState){
 
-        EditTextIn = findViewById(R.id.text_input);
-        CountDown = findViewById(R.id.text_countdown);
+        EditTextIn = (EditText) getView().findViewById(R.id.text_input);
+        CountDown = (TextView) getView().findViewById(R.id.text_countdown);
 
-        BtnSet = findViewById(R.id.btn_set);
-        BtnBeginPause = findViewById(R.id.btn_begin_pause);
-        BtnAbandon = findViewById(R.id.btn_abandon);
+        BtnSet = (Button) getView().findViewById(R.id.btn_set);
+        BtnBeginPause = (Button) getView().findViewById(R.id.btn_begin_pause);
+        BtnAbandon = (Button) getView().findViewById(R.id.btn_abandon);
 
         BtnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String input = EditTextIn.getText().toString();
                 if (input.length() == 0) {
-                    Toast.makeText(ClockActivity.this, "Input can't be Empty!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Input can't be Empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 long msInput = Long.parseLong(input) * 60000;
                 if (msInput == 0) {
-                    Toast.makeText(ClockActivity.this, "Input Must Be Positive!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Input Must Be Positive!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -80,7 +107,6 @@ public class ClockActivity extends AppCompatActivity {
                 abandonTimer();
             }
         });
-
     }
 
     private void setTime(long ms) {
@@ -166,18 +192,19 @@ public class ClockActivity extends AppCompatActivity {
     }
 
     private void minKeyboard() {
-        View view = this.getCurrentFocus();
+        View view = this.getActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager inMgrMgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            InputMethodManager inMgrMgr = (InputMethodManager) this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             inMgrMgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
+
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
 
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
         editor.putLong("startTimeMs", StartTimeMs);
@@ -193,10 +220,10 @@ public class ClockActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
 
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
 
         StartTimeMs = pref.getLong("startTimeMs", 600000);
         TimeLeftMs = pref.getLong("msLeft", StartTimeMs);
@@ -218,5 +245,11 @@ public class ClockActivity extends AppCompatActivity {
                 beginTimer();
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
