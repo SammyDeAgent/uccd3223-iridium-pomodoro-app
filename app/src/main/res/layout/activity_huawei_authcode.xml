@@ -1,41 +1,59 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/hwid_signInCode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="14sp"
-            android:text="AuthorizationCode Mode SignIn" />
+    <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
+        android:id="@+id/hwid_signInCode"
+        android:layout_width="351dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginEnd="5dp"
+        android:padding="5dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/cancel_authorization"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cancel Authorization" />
+    <Button
+        android:id="@+id/cancel_authorization"
+        android:layout_width="355dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="136dp"
+        android:text="Cancel Authorization"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hwid_signInCode" />
 
-        <Button
-            android:id="@+id/hwid_signout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:textSize="14sp"
-            android:text="SignOut" />
+    <Button
+        android:id="@+id/hwid_signout"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:padding="5dp"
+        android:text="SignOut"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancel_authorization" />
+
+    <TextView
+        android:id="@+id/hwid_log_text"
+        android:layout_width="334dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="60dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hwid_signInCode"
+        tools:text="test" />
 
 
-        <TextView
-            android:id="@+id/hwid_log_text"
-            android:layout_width="match_parent"
-            android:layout_height="336dp" />
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

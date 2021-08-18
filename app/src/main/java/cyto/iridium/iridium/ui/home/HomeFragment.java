@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
         Picasso.get().load(avatarURL).into(imageView);
         //Glide.with(this).load(avatarURL).into(imageView);
 
-        textView.setText("Hello, "+displayName);
+        textView.setText(displayName);
 
 
         return root;
