@@ -22,6 +22,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 //import com.bumptech.glide.Glide;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.huawei.hmf.tasks.OnFailureListener;
 import com.huawei.hmf.tasks.OnSuccessListener;
 import com.huawei.hmf.tasks.Task;
@@ -81,8 +83,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         final ImageView imageView = binding.avatarImage;
         final TextView textView = binding.textHome;
 
-        Picasso.get().load(avatarURL).into(imageView);
+        //Picasso.get().load(avatarURL).into(imageView);
         //Glide.with(this).load(avatarURL).into(imageView);
+//        Glide.with(this).load(avatarURL)
+//                .placeholder(R.drawable.ic_launcher_background)
+//                .error(R.drawable.ic_launcher_background)
+//                .into(imageView);
+        Glide.with(getContext()).load(avatarURL).apply(RequestOptions.circleCropTransform()).into(imageView);
 
         textView.setText(displayName);
 
