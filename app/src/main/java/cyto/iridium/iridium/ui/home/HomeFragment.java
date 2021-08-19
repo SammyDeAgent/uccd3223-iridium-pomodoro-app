@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
+import cyto.iridium.iridium.AuthWithAuthCodeActivity;
 import cyto.iridium.iridium.R;
 import cyto.iridium.iridium.databinding.FragmentHomeBinding;
 
@@ -71,17 +72,12 @@ public class HomeFragment extends Fragment {
 
         textView.setText(displayName);
 
-
         return root;
     }
 
+
     @Override
     public void onViewCreated(View view, @NonNull Bundle savedInstanceState){
-
-
-
-
-
     }
 
     @Override

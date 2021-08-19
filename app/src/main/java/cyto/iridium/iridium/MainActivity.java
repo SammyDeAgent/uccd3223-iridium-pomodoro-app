@@ -1,6 +1,8 @@
 package cyto.iridium.iridium;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -8,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.huawei.hms.support.account.result.AuthAccount;
 
+import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -54,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        menu.add("Exit")
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        finishAffinity();
+                        return false;
+                    }
+                });
         return true;
     }
 
