@@ -71,16 +71,19 @@ public class ClockFragment extends Fragment {
         BtnAbandon = (Button) getView().findViewById(R.id.btn_abandon);
 
         BtnSet.setOnClickListener(new View.OnClickListener() {
+            /* To check if the user input is Empty or Zero(s) */
             @Override
             public void onClick(View v) {
                 String input = EditTextIn.getText().toString();
                 if (input.length() == 0) {
+                    /* An Error Message if Empty Input to notify user */
                     Toast.makeText(getContext(), "Input can't be Empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 long msInput = Long.parseLong(input) * 60000;
                 if (msInput == 0) {
+                    /* An Error Message if input is Zero(s) to notify user */
                     Toast.makeText(getContext(), "Input Must Be Positive!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -90,6 +93,7 @@ public class ClockFragment extends Fragment {
             }
         });
 
+        /* To Begin or Pause the Timer */
         BtnBeginPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +105,7 @@ public class ClockFragment extends Fragment {
             }
         });
 
+        /* To Abandon the Timer @Reset */
         BtnAbandon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,15 +114,19 @@ public class ClockFragment extends Fragment {
         });
     }
 
+    /* Time in Ms we want to Set Timer as and Minimise Keyboard after Set-ing Time */
     private void setTime(long ms) {
         StartTimeMs = ms;
         abandonTimer();
         minKeyboard();
     }
 
+    /* To  Begin/Start Timer */
     private void beginTimer() {
+        /* When Rotating phone, the timer slows down, this way we know the Exact time the Timer needs to end */
         EndTime = System.currentTimeMillis() + TimeLeftMs;
 
+        /* After how many Ms will the onTick() be called */
         CountDownTimer = new CountDownTimer(TimeLeftMs, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -132,29 +141,36 @@ public class ClockFragment extends Fragment {
             }
         }.start();
 
+        /* When Timer is Running, change the Abandon Btn's Visibility and Begin!/Pause words */
         TimerRunning = true;
         updateFields();
     }
 
+    /* Pause the timer and change the Abandon Btn's Visibility and Begin!/Pause words */
     private void pauseTimer() {
         CountDownTimer.cancel();
         TimerRunning = false;
         updateFields();
     }
 
+    /* Abandon/Reset the timer and change the Abandon Btn's Visibility */
     private void abandonTimer() {
         TimeLeftMs = StartTimeMs;
         updateCountDown();
         updateFields();
     }
 
+    /* Change the Time Remaining shown */
     private void updateCountDown() {
+
+        /* Change the time from Ms to Hrs, Min, Sec and Format it to be displayed to user */
         int hrs = (int) (TimeLeftMs / 1000) / 3600;
         int min = (int) ((TimeLeftMs / 1000) % 3600) / 60;
         int sec = (int) (TimeLeftMs / 1000) % 60;
 
         String formattedTimeLeft;
 
+        /* Check if need to Show Hrs too or not */
         if (hrs > 0) {
             formattedTimeLeft = String.format(Locale.getDefault(), "%d:%02d:%02d", hrs, min, sec);
 
@@ -165,24 +181,30 @@ public class ClockFragment extends Fragment {
         CountDown.setText(formattedTimeLeft);
     }
 
+    /* To change Abandon Btn's Visibility and or Begin/Start and Pause Btns */
     private void updateFields(){
+
+        /* When Timer is Running, make the Input/Set/Abandon Btns Invisible */
         if (TimerRunning) {
             EditTextIn.setVisibility(View.INVISIBLE);
             BtnSet.setVisibility(View.INVISIBLE);
             BtnAbandon.setVisibility(View.INVISIBLE);
-
             BtnBeginPause.setText("Pause");
         } else {
+            /* When Timer is Not Running, make the Input/Set/Abandon Btns Visible and change Pause/Begin */
             EditTextIn.setVisibility(View.VISIBLE);
             BtnSet.setVisibility(View.VISIBLE);
             BtnBeginPause.setText("Begin!");
 
+            /* When Timer hits Zero, only can Abandon/Reset the Timer (Cause I don't want to Begin again until we have Re-set it) */
             if (TimeLeftMs < 1000) {
                 BtnBeginPause.setVisibility(View.INVISIBLE);
             } else {
+                /* When Timer isn't Zero, can still Pause/Begin */
                 BtnBeginPause.setVisibility(View.VISIBLE);
             }
 
+            /* When Timer is Paused and the Time Remaining is Less than the Initial Time, change Abandon Btn's Visibility */
             if (TimeLeftMs < StartTimeMs) {
                 BtnAbandon.setVisibility(View.VISIBLE);
             } else {
@@ -191,6 +213,7 @@ public class ClockFragment extends Fragment {
         }
     }
 
+    /* To Minimise Keyboard */
     private void minKeyboard() {
         View view = this.getActivity().getCurrentFocus();
         if (view != null) {
@@ -201,12 +224,15 @@ public class ClockFragment extends Fragment {
 
 
     @Override
+    /* Save Preferences if App is Closed/Stopped/Rotated */
     public void onStop() {
         super.onStop();
 
+        /* Save Values/Data into Shared Preferences */
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
 
+        /* To Save current Timer related Values/Data */
         editor.putLong("startTimeMs", StartTimeMs);
         editor.putLong("msLeft", TimeLeftMs);
         editor.putBoolean("timerRunning", TimerRunning);
@@ -214,17 +240,21 @@ public class ClockFragment extends Fragment {
 
         editor.apply();
 
+        /* Cancelling the Timer cause We are gonna Start it onStart anyway */
         if (CountDownTimer != null) {
             CountDownTimer.cancel();
         }
     }
 
     @Override
+    /* Load Preferences when App is Opened from Background/Restarted/Rotated */
     public void onStart() {
         super.onStart();
 
+        /* Get Values/Data from Shared Preferences */
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
 
+        /* To Load current Timer related Values/Data so that when After Rotate/Close App/App in Background, the Timer can continue */
         StartTimeMs = pref.getLong("startTimeMs", 600000);
         TimeLeftMs = pref.getLong("msLeft", StartTimeMs);
         TimerRunning = pref.getBoolean("timerRunning", false);
@@ -232,10 +262,12 @@ public class ClockFragment extends Fragment {
         updateCountDown();
         updateFields();
 
+        /* To Restore Remaining Time after Rotate more accurately by using Initially Calculated End Time of Timer */
         if (TimerRunning) {
             EndTime = pref.getLong("endTime", 0);
             TimeLeftMs = EndTime - System.currentTimeMillis();
 
+            /* To check if Timer has already Ended */
             if (TimeLeftMs < 0) {
                 TimeLeftMs = 0;
                 TimerRunning = false;
