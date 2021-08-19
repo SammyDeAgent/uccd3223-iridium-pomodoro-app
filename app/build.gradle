@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.huawei.agconnect'
 }
 
 android {
@@ -8,17 +9,31 @@ android {
 
     defaultConfig {
         applicationId "cyto.iridium.iridium"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
+
+    signingConfigs {
+        config {
+            storeFile file('C:\\Users\\AcerUser\\Keygen-Cert\\huawei-iridium-cert.jks')
+            storePassword '142857999999'
+            keyPassword '142857999999'
+            keyAlias 'key0'
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -30,10 +45,16 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    packagingOptions{
+        pickFirst "androidsupportmultidexversion.txt"
+    }
 }
 
 dependencies {
-
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -46,4 +67,5 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.huawei.hms:hwid:6.0.1.300'
 }
