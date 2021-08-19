@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:hint="Minutes"
         android:inputType="number"
-        android:maxLength="5"
+        android:maxLength="3"
         app:layout_constraintBottom_toTopOf="@+id/btn_set"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
