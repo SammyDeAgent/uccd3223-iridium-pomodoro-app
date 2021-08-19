@@ -65,21 +65,8 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
         scale.setRepeatMode(Animation.REVERSE);
         scale.setRepeatCount(Animation.INFINITE);
 
-//        Animation scale2 = new ScaleAnimation(
-//                1f, -1f, // Start and end values for the X axis scaling
-//                1f, 1f, // Start and end values for the Y axis scaling
-//                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-//                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-//        scale2.setFillAfter(true); // Needed to keep the result of the animation
-//        scale2.setDuration(2000);
-//        scale2.setStartOffset(2000);
-//        scale2.setRepeatMode(Animation.RESTART);
-//        scale2.setRepeatCount(Animation.INFINITE);
-
-
         AnimationSet gemRotate = new AnimationSet(true);
         gemRotate.addAnimation(scale);
-        //gemRotate.addAnimation(scale2);
 
         imageView.setAnimation(gemRotate);
     }
