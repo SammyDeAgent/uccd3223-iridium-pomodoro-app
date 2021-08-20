@@ -1,24 +1,19 @@
-package cyto.iridium.iridium.ui.slideshow;
+package cyto.iridium.iridium.ui.Avatar;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import cyto.iridium.iridium.R;
 import cyto.iridium.iridium.databinding.FragmentSlideshowBinding;
-import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class SlideshowFragment extends Fragment {
@@ -34,6 +29,7 @@ public class SlideshowFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        //get the SharedPreference from the clock fragment to get the total points
         SharedPreferences prefoutput2 = getActivity().getSharedPreferences("MySharePoint", 0);
         long point = prefoutput2.getLong("totalpoint", 0);
         SharedPreferences.Editor prefEdit2 = prefoutput2.edit();
@@ -55,26 +51,27 @@ public class SlideshowFragment extends Fragment {
         earnedpoint = binding.earnedpoint;
         earnedpoint.setText(String.valueOf(point));
 
+        //display the different stages of the growing tree (avatar) according to the total points earned
         treeview = binding.growingtree;
-
-        if(point >= 25200){
+        if(point >= 25200){ //7 hours
             treeview.setImageResource(R.drawable.tree7);
-        }else if(point >= 21600){
+        }else if(point >= 21600){ //6 hours
             treeview.setImageResource(R.drawable.tree6);
-        }else if(point >= 18000){
+        }else if(point >= 18000){ //5 hours
             treeview.setImageResource(R.drawable.tree5);
-        }else if(point >= 10800){
+        }else if(point >= 10800){ //3 hours
             treeview.setImageResource(R.drawable.tree4);
-        }else if(point >= 3600){
+        }else if(point >= 3600){ //1 hour
             treeview.setImageResource(R.drawable.tree3);
-        }else if(point >= 1800){
+        }else if(point >= 1800){ //30 minutes
             treeview.setImageResource(R.drawable.tree2);
-        }else if(point >= 60){
+        }else if(point >= 60){ //1 minute
             treeview.setImageResource(R.drawable.tree1);
         }else{
             treeview.setImageResource(R.drawable.tree0);
         }
 
+        //refresh the page to the see the latest total points earned
         resetBtn = binding.resetbutton;
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override

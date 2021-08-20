@@ -40,7 +40,6 @@ public class ClockFragment extends Fragment {
     private long EndTime;
 
     private TextView showpoint;
-    //private long totaltime;
     private long difftime;
 
     private ClockViewModel clockViewModel;
@@ -128,7 +127,7 @@ public class ClockFragment extends Fragment {
             }
         });
 
-        prefEditor.putLong("point", 0);
+        prefEditor.putLong("point", 0); //create "point" key to store the point of the current time set
         prefEditor.commit();
     }
 
@@ -153,14 +152,14 @@ public class ClockFragment extends Fragment {
                 Long savedTotalTime = sharepoint.getLong("totaltime", 0);
 
                 difftime = (savedTotalTime / 1000) - (TimeLeftMs / 1000);
-                prefEditor.putLong("point", difftime);
+                prefEditor.putLong("point", difftime); //update the point earned from the current time set
                 prefEditor.commit();
 
                 Long totalPoints = sharepoint.getLong("totalpoint", 0)+1;
-                prefEditor.putLong("totalpoint", totalPoints);
+                prefEditor.putLong("totalpoint", totalPoints); //update the total point earned by the user
                 prefEditor.commit();
 
-                showpoint.setText(String.valueOf(difftime));
+                showpoint.setText(String.valueOf(difftime)); //display the point earned from the current time set
             }
 
             @Override

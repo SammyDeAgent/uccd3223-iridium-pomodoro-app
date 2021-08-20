@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.slideshow.SlideshowFragment">
+    tools:context=".ui.Avatar.SlideshowFragment">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="The avatar tree will grow according to the points earned by Pomodoro,
+The more you use the clock session, the more points you get. Try a clock session of 30 minutes and see what happen to the avatar.
+ Use the time wisely, and watch the tree grows."
         app:layout_constraintBottom_toTopOf="@+id/growingtree"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/prefpoints2"
@@ -32,20 +34,20 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/growingtree"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintVertical_bias="0.281" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/growingtree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:duration="10000"
         android:src="@drawable/tree0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14"
-        android:duration="10000"/>
+        app:layout_constraintVertical_bias="0.348" />
 
     <TextView
         android:id="@+id/earnedpoint"
@@ -57,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prefpoints2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.17" />
 
     <Button
         android:id="@+id/resetbutton"
@@ -68,6 +70,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/earnedpoint"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintVertical_bias="0.587" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
