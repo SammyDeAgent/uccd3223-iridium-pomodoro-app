@@ -6,17 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="158dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="184dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="221dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="272dp"
+        android:gravity="center"
+        android:text="test"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarImage"
+        app:layout_constraintVertical_bias="0.266" />
+
+    <Button
+        android:id="@+id/cancel_authorization"
+        android:layout_width="355dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginBottom="68dp"
+        android:text="Cancel Authorization"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hwid_signInCode" />
+
+    <Button
+        android:id="@+id/hwid_signout"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="5dp"
+        android:padding="5dp"
+        android:text="SignOut"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancel_authorization" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

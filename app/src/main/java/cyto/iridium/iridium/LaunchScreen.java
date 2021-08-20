@@ -21,7 +21,10 @@ public class LaunchScreen extends AppCompatActivity {
         mRunnable = new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LaunchScreen.this,MainActivity.class);
+                Intent intent = new Intent(
+                        LaunchScreen.this,
+                        AuthWithAuthCodeActivity.class
+                );
                 startActivity(intent);
                 finish();
             }

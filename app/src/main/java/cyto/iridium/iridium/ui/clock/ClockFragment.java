@@ -228,8 +228,10 @@ public class ClockFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
+
         /* Save Values/Data into Shared Preferences */
-        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("Iridium_Clock", Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = pref.edit();
 
         /* To Save current Timer related Values/Data */
@@ -251,8 +253,9 @@ public class ClockFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+
         /* Get Values/Data from Shared Preferences */
-        SharedPreferences pref = this.getActivity().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences pref = this.getActivity().getSharedPreferences("Iridium_Clock", Context.MODE_PRIVATE);
 
         /* To Load current Timer related Values/Data so that when After Rotate/Close App/App in Background, the Timer can continue */
         StartTimeMs = pref.getLong("startTimeMs", 600000);
