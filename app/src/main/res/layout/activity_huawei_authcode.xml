@@ -6,43 +6,93 @@
     android:layout_height="match_parent">
 
 
+    <!--    <Button-->
+    <!--        android:id="@+id/cancel_authorization"-->
+    <!--        android:layout_width="355dp"-->
+    <!--        android:layout_height="53dp"-->
+    <!--        android:layout_marginTop="136dp"-->
+    <!--        android:text="Cancel Authorization"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/hwid_signInCode" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/hwid_signout"-->
+    <!--        android:layout_width="355dp"-->
+    <!--        android:layout_height="48dp"-->
+    <!--        android:layout_marginStart="5dp"-->
+    <!--        android:layout_marginTop="8dp"-->
+    <!--        android:layout_marginEnd="5dp"-->
+    <!--        android:padding="5dp"-->
+    <!--        android:text="SignOut"-->
+    <!--        android:textSize="14sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.456"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/cancel_authorization" />-->
+
+    <ImageView
+        android:id="@+id/animImage"
+        android:layout_width="248dp"
+        android:layout_height="283dp"
+        android:background="@drawable/ic_iridium_app"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <TextView
+        android:id="@+id/launchText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iridium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toTopOf="@+id/hwid_signInCode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.588" />
+
+    <TextView
+        android:id="@+id/launchText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Pomodoro Timer"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/launchText2" />
+
+    <TextView
+        android:id="@+id/launchText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="By Cytokine Iridium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hwid_log_text"
+        app:layout_constraintVertical_bias="0.742" />
+
     <com.huawei.hms.support.hwid.ui.HuaweiIdAuthButton
         android:id="@+id/hwid_signInCode"
-        android:layout_width="351dp"
-        android:layout_height="47dp"
+        android:layout_width="311dp"
+        android:layout_height="45dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="308dp"
         android:layout_marginEnd="5dp"
         android:padding="5dp"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/cancel_authorization"
-        android:layout_width="355dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="136dp"
-        android:text="Cancel Authorization"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hwid_signInCode" />
-
-    <Button
-        android:id="@+id/hwid_signout"
-        android:layout_width="355dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:padding="5dp"
-        android:text="SignOut"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cancel_authorization" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
 
     <TextView
         android:id="@+id/hwid_log_text"

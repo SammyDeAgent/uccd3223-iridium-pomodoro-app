@@ -4,6 +4,7 @@
 
 package cyto.iridium.iridium;
 
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huawei.hmf.tasks.OnFailureListener;
@@ -24,10 +31,13 @@ import com.huawei.hms.support.account.result.AuthAccount;
 import com.huawei.hms.support.account.service.AccountAuthService;
 
 public class AuthWithAuthCodeActivity extends Activity implements View.OnClickListener {
+
     private final String TAG = "Account";
     private TextView textView;
+    private ImageView imageView;
     private AccountAuthService mAuthService;
     private AccountAuthParams mAuthParam;
+
     //login by code
     private static final int REQUEST_SIGN_IN_LOGIN_CODE = 1003;
 
@@ -40,8 +50,25 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
         setContentView(R.layout.activity_huawei_authcode);
         textView = findViewById(R.id.hwid_log_text);
         findViewById(R.id.hwid_signInCode).setOnClickListener(this);
-        findViewById(R.id.hwid_signout).setOnClickListener(this);
-        findViewById(R.id.cancel_authorization).setOnClickListener(this);
+//        findViewById(R.id.hwid_signout).setOnClickListener(this);
+//        findViewById(R.id.cancel_authorization).setOnClickListener(this);
+
+        imageView = findViewById(R.id.animImage);
+
+        Animation scale = new ScaleAnimation(
+                1f, -1f, // Start and end values for the X axis scaling
+                1f, 1f, // Start and end values for the Y axis scaling
+                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+        scale.setFillAfter(true); // Needed to keep the result of the animation
+        scale.setDuration(2000);
+        scale.setRepeatMode(Animation.REVERSE);
+        scale.setRepeatCount(Animation.INFINITE);
+
+        AnimationSet gemRotate = new AnimationSet(true);
+        gemRotate.addAnimation(scale);
+
+        imageView.setAnimation(gemRotate);
     }
 
     private void signInCode() {
@@ -53,7 +80,7 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
                 .setEmail()
                 .createParams();
         mAuthService = AccountAuthManager.getService(AuthWithAuthCodeActivity.this, mAuthParam);
-        startActivityForResult(mAuthService.getSignInIntent(), REQUEST_SIGN_IN_LOGIN_CODE);
+        startActivityForResult(mAuthService.getSignInIntent(),REQUEST_SIGN_IN_LOGIN_CODE);
     }
 
     private void signOut() {
@@ -62,15 +89,22 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
             @Override
             public void onSuccess(Void aVoid) {
                 Log.i(TAG, "signOut Success");
-                textView.setText("signOut sucess");
+                textView.setText("Sign Out Success");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception e) {
                 Log.i(TAG, "signOut fail");
-                textView.setText("signOut fail");
+                textView.setText("Sign Out Failed");
             }
         });
+
+        Intent intent = new Intent(
+                this,
+                AuthWithAuthCodeActivity.class
+        );
+        startActivity(intent);
+        finish();
     }
 
     private void cancelAuthorization() {
@@ -79,16 +113,23 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
             @Override
             public void onSuccess(Void aVoid) {
                 Log.i(TAG, "cancelAuthorization success");
-                textView.setText("cancelAuthorization sucess");
+                textView.setText("Authorization Cancel Success");
             }
         });
         task.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception e) {
                 Log.i(TAG, "cancelAuthorization failure：" + e.getClass().getSimpleName());
-                textView.setText("cancelAuthorization failure：" + e.getClass().getSimpleName());
+                textView.setText("Authorization Cancel Failure：" + e.getClass().getSimpleName());
             }
         });
+
+        Intent intent = new Intent(
+                this,
+                AuthWithAuthCodeActivity.class
+        );
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -119,15 +160,15 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
                 AuthAccount authAccount = authAccountTask.getResult();
                 Log.i(TAG, "Authorization code:" + authAccount.getAuthorizationCode());
                 Log.i(TAG, "Access Token:" + authAccount.getIdToken());
-                textView.setText("sign in successfully ");
+                textView.setText("Signed In Successfully");
 
                 SharedPreferences loginInfo = getSharedPreferences(
                         "Iridium_Login",
                         MODE_PRIVATE
                 );
-
                 SharedPreferences.Editor loginInfoEdit = loginInfo.edit();
 
+                loginInfoEdit.putString("auth_Logged", "1");
                 loginInfoEdit.putString("auth_Uid", authAccount.getUid());
                 loginInfoEdit.putString("auth_Name", authAccount.getDisplayName());
                 loginInfoEdit.putString("auth_Avatar", authAccount.getAvatarUriString());
@@ -146,7 +187,7 @@ public class AuthWithAuthCodeActivity extends Activity implements View.OnClickLi
             } else {
                 // The sign-in failed. No processing is required. Logs are recorded to facilitate fault locating.
                 Log.e(TAG, "sign in failed : " +((ApiException)authAccountTask.getException()).getStatusCode());
-                textView.setText("sign in failed");
+                textView.setText("Sign In Procedure Failed");
             }
         }
     }
