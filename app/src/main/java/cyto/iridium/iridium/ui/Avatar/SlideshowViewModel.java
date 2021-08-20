@@ -1,4 +1,4 @@
-package cyto.iridium.iridium.ui.slideshow;
+package cyto.iridium.iridium.ui.Avatar;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
