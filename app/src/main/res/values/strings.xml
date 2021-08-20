@@ -15,9 +15,10 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_slideshow">Tree Growth</string>
     <string name="menu_clock">Clock</string>
     <string name="menu_profile">Profile</string>
     <string name="header">Iridium Pomodoro Timer</string>
     <string name="subtext">Watch your hardship flourish into life.</string>
+    <string name="menu_avatar">Tree Growth</string>
 </resources>
