@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Avatar.SlideshowFragment">
+    tools:context=".ui.avatar.SlideshowFragment">
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="349dp"
+        android:layout_height="88dp"
         android:text="The avatar tree will grow according to the points earned by Pomodoro,
 The more you use the clock session, the more points you get. Try a clock session of 30 minutes and see what happen to the avatar.
  Use the time wisely, and watch the tree grows."
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/growingtree"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.642" />
 
     <TextView
         android:id="@+id/prefpoints2"
@@ -34,20 +34,19 @@ The more you use the clock session, the more points you get. Try a clock session
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/growingtree"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.096" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/growingtree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="381dp"
+        android:layout_height="407dp"
         android:duration="10000"
         android:src="@drawable/tree0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.348" />
+        app:layout_constraintVertical_bias="0.382" />
 
     <TextView
         android:id="@+id/earnedpoint"
@@ -59,7 +58,7 @@ The more you use the clock session, the more points you get. Try a clock session
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prefpoints2"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/resetbutton"
@@ -70,6 +69,6 @@ The more you use the clock session, the more points you get. Try a clock session
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/earnedpoint"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package cyto.iridium.iridium.ui.Avatar;
+package cyto.iridium.iridium.ui.avatar;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
