@@ -14,6 +14,8 @@
 .cxx
 local.properties
 
+.idea/misc.xml
+
 # Created by https://www.gitignore.io/api/java,gradle
 
 ### Java ###
@@ -51,3 +53,4 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/java,gradle
+.idea/misc.xml
