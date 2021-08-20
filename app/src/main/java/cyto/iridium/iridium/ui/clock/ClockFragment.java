@@ -1,6 +1,7 @@
 package cyto.iridium.iridium.ui.clock;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -38,8 +39,15 @@ public class ClockFragment extends Fragment {
     private long TimeLeftMs;
     private long EndTime;
 
+    private TextView showpoint;
+    //private long totaltime;
+    private long difftime;
+
     private ClockViewModel clockViewModel;
     private FragmentClockBinding binding;
+
+    private SharedPreferences sharepoint;
+    SharedPreferences.Editor prefEditor;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +78,13 @@ public class ClockFragment extends Fragment {
         BtnBeginPause = (Button) getView().findViewById(R.id.btn_begin_pause);
         BtnAbandon = (Button) getView().findViewById(R.id.btn_abandon);
 
+        showpoint = binding.points;
+
+        sharepoint = getActivity().getSharedPreferences("MySharePoint",0);
+        prefEditor = sharepoint.edit();
+
+        showpoint.setText(String.valueOf(sharepoint.getLong("point",0)));
+
         BtnSet.setOnClickListener(new View.OnClickListener() {
             /* To check if the user input is Empty or Zero(s) */
             @Override
@@ -87,7 +102,7 @@ public class ClockFragment extends Fragment {
                     Toast.makeText(getContext(), "Input Must Be Positive!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                prefEditor.putLong("totaltime", msInput);
                 setTime(msInput);
                 EditTextIn.setText("");
             }
@@ -112,6 +127,9 @@ public class ClockFragment extends Fragment {
                 abandonTimer();
             }
         });
+
+        prefEditor.putLong("point", 0);
+        prefEditor.commit();
     }
 
     /* Time in Ms we want to Set Timer as and Minimise Keyboard after Set-ing Time */
@@ -132,6 +150,17 @@ public class ClockFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
                 TimeLeftMs = millisUntilFinished;
                 updateCountDown();
+                Long savedTotalTime = sharepoint.getLong("totaltime", 0);
+
+                difftime = (savedTotalTime / 1000) - (TimeLeftMs / 1000);
+                prefEditor.putLong("point", difftime);
+                prefEditor.commit();
+
+                Long totalPoints = sharepoint.getLong("totalpoint", 0)+1;
+                prefEditor.putLong("totalpoint", totalPoints);
+                prefEditor.commit();
+
+                showpoint.setText(String.valueOf(difftime));
             }
 
             @Override
